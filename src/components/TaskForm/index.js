@@ -1,9 +1,11 @@
-import { Box, TextField, Button } from '@material-ui/core';
+import { Box, Button, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { Field, reduxForm } from 'redux-form';
+import renderTextField from '../FormHelper/TextField';
 import styles from './styles';
-import { reduxForm, Field } from 'redux-form';
-import { compose } from 'redux'
+import {required} from '../FormHelper/Validate/FieldLevelValidationForm';
 
 class TaskForm extends Component {
     constructor(props) {
@@ -19,23 +21,9 @@ class TaskForm extends Component {
         var { classes, hideModal, handleSubmit } = this.props;
         return (
             <form className={classes.form} onSubmit={handleSubmit(this.handleSubmitForm)}>
-                <Field name="title" component="input" />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Tên công việc"
-                    type="text"
-                    fullWidth
-                />
-                <TextField
-                    margin="dense"
-                    id="desc"
-                    label="Mô tả"
-                    type="text"
-                    fullWidth
-                    mt={2}
-                />
+                <Field name="title" component={renderTextField} label="Tiêu đề" className={classes.testField} fullWidth validate={[required]} />
+                <Field name="desc" component={renderTextField} label="Mô tả" className={classes.testField} fullWidth validate={[required]} />
+                <Field name="email" component={renderTextField} label="Email" className={classes.testField} fullWidth validate={[required]} />
                 <Box display="flex" flexDirection="row-reverse" mt={2}>
                     <Button onClick={hideModal} color="primary">Cancel</Button>
                     <Button type="submit" color="primary">OK</Button>
