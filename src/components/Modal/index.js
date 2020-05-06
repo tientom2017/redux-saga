@@ -14,7 +14,7 @@ class CommonModal extends Component {
         this.state = {};
     }
     render() {
-        const { classes, open, handleClose, component, modalActionsCreator, title } = this.props;
+        const { classes, open, component, modalActionsCreator, title } = this.props;
         const { hideModal } = modalActionsCreator;
         return (
             <Modal open={open} onClose={hideModal}>

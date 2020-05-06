@@ -2,17 +2,24 @@ import { Box, TextField, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import React, { Component } from 'react';
 import styles from './styles';
+import { reduxForm, Field } from 'redux-form';
+import { compose } from 'redux'
 
 class TaskForm extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
-    render() {
-        var { classes, open, hideModal } = this.props;
 
+    handleSubmitForm = data => {
+        console.log(data);
+    }
+
+    render() {
+        var { classes, hideModal, handleSubmit } = this.props;
         return (
-            <form className={classes.form}>
+            <form className={classes.form} onSubmit={handleSubmit(this.handleSubmitForm)}>
+                <Field name="title" component="input" />
                 <TextField
                     autoFocus
                     margin="dense"
@@ -31,11 +38,20 @@ class TaskForm extends Component {
                 />
                 <Box display="flex" flexDirection="row-reverse" mt={2}>
                     <Button onClick={hideModal} color="primary">Cancel</Button>
-                    <Button onClick={hideModal} color="primary">OK</Button>
+                    <Button type="submit" color="primary">OK</Button>
                 </Box>
             </form>
         );
     }
 }
 
-export default withStyles(styles)(TaskForm);
+const TASK_NAME = 'TASK MANAGEMENT';
+
+const withReduxForm = reduxForm({
+    form: TASK_NAME
+});
+
+export default compose(
+    withStyles(styles),
+    withReduxForm
+)(TaskForm);
