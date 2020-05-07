@@ -17,6 +17,13 @@ const reducer = (state = initialState, action) => {
             return { ...state, listTask: [] };
         case Types.FILTER_TAST_SUCCESS:
             return { ...state, listTask: action.payload.data };
+        case Types.ADD_TASK:
+            console.log(action);
+            return { ...state, listTask: action.payload.data };
+        case Types.FILTER_TAST_SUCCESS:
+            return { ...state, listTask: action.payload.data };
+        case Types.FILTER_TAST_SUCCESS:
+            return { ...state, listTask: action.payload.data };
         default: return state;
     }
 };

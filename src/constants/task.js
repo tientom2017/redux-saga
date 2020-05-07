@@ -4,3 +4,8 @@ export const FETCH_TASK_FALSE = 'FETCH_TASK_FALSE';
 
 export const FILTER_TAST = 'FILTER_TAST';
 export const FILTER_TAST_SUCCESS = 'FILTER_TAST_SUCCESS';
+
+export const ADD_TASK = 'ADD_TASK';
+export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
+export const ADD_TASK_FALSE = 'ADD_TASK_FALSE';
+
