@@ -1,5 +1,6 @@
 import * as taskApi from '../apis/task';
 import * as Types from '../constants/task';
+import * as TypesStatus from '../constants/index';
 
 export const fetListTask = () => {
     return {
@@ -62,17 +63,16 @@ export const filterTaskSuccess = data => {
     };
 };
 
-export const addTaskRequest = (title, desc, email) => {
+export const addTaskRequest = (title, description) => {
     return {
         type: Types.ADD_TASK,
         payload: {
             title,
-            desc,
-            email
+            description,
+            status: TypesStatus.STATUS[0].value
         }
     };
 };
-
 
 export const addTaskSuccess = data => {
     return {
@@ -83,7 +83,6 @@ export const addTaskSuccess = data => {
     };
 };
 
-
 export const addTaskFalse = data => {
     return {
         type: Types.ADD_TASK_FALSE,
@@ -93,3 +92,11 @@ export const addTaskFalse = data => {
     };
 };
 
+export const taskEditing = task => {
+    return {
+        type: Types.TASK_EDITING,
+        payload: {
+            task
+        }
+    }
+}

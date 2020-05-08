@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
 import * as taskActions from '../../actions/task';
 import * as modalActions from '../../actions/modal';
-import TaskForm from '../../components/TaskForm';
+import TaskForm from '../TaskForm';
 import TaskList from '../../components/TaskList';
 import { STATUS } from '../../constants';
 import styles from './styles';
@@ -33,8 +33,10 @@ class TaskBoard extends Component {
     }
 
     addNewTask = () => {
-        const {modalActionsCreators} = this.props;
+        const {modalActionsCreators, taskActionsCreators} = this.props;
         const {showModal, changeModalTitle, changeModalContent, hideModal} = modalActionsCreators;
+        const {taskEditing} = taskActionsCreators;
+        taskEditing(null);
         showModal();
         changeModalTitle('Thêm mới công việc');
         changeModalContent(<TaskForm hideModal={hideModal} />);
@@ -56,6 +58,16 @@ class TaskBoard extends Component {
         return xhtml;
     }
 
+    handleClickEdit = task => {
+        const {taskActionsCreators, modalActionsCreators} = this.props;
+        const {taskEditing} = taskActionsCreators;
+        taskEditing(task);
+        const {showModal, changeModalTitle, changeModalContent, hideModal} = modalActionsCreators;
+        showModal();
+        changeModalTitle('Cập nhật công việc');
+        changeModalContent(<TaskForm hideModal={hideModal} />);
+    }
+
     render() {
         var listTask1 = this.props.listTask;
         return (
@@ -74,12 +86,11 @@ class TaskBoard extends Component {
                             if(listTask1 && listTask1.length > 0) {
                                 var taskFilter = listTask1.filter(task => task.status === status.value);
                                 return (
-                                    <TaskList taskFilter={taskFilter} status={status} />
+                                    <TaskList taskFilter={taskFilter} status={status} onClickEdit={this.handleClickEdit} />
                                 );
                             }
                         })
                     }
-
                 </Grid>
             </Fragment>
         );

@@ -2,7 +2,8 @@ import * as Types from '../constants/task';
 import { toastErr, toastSuccess } from '../helpers/toastHelper';
 const initialState = {
     listTask: [],
-    listTaskFiler: []
+    listTaskFiler: [],
+    taskEditing: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,12 +19,16 @@ const reducer = (state = initialState, action) => {
         case Types.FILTER_TAST_SUCCESS:
             return { ...state, listTask: action.payload.data };
         case Types.ADD_TASK:
-            console.log(action);
-            return { ...state, listTask: action.payload.data };
-        case Types.FILTER_TAST_SUCCESS:
-            return { ...state, listTask: action.payload.data };
-        case Types.FILTER_TAST_SUCCESS:
-            return { ...state, listTask: action.payload.data };
+            return { ...state, taskEditing: null };
+        case Types.ADD_TASK_SUCCESS:
+            const data = action.payload.data;
+            return { ...state, listTask: state.listTask.concat([data]) };
+        case Types.ADD_TASK_FALSE:
+            toastErr('Add new false');
+            return { ...state };
+        case Types.TASK_EDITING:
+            const {task} = action.payload;
+            return { ...state, taskEditing: task};
         default: return state;
     }
 };

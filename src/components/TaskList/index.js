@@ -10,14 +10,14 @@ class TaskList extends Component {
         this.state = {};
     }
     render() {
-        const { status, taskFilter, classes } = this.props;
+        const { status, taskFilter, classes, onClickEdit } = this.props;
         return (
             <Grid key={taskFilter.id} container item md={4}>
                 <div style={{ width: '100%' }} className={classes.status}>{status.label}</div>
                 <div className={classes.wrapperListTask}>
                     {taskFilter.map((val) => {
                         return (
-                            <TaskItem status={status} val={val} />
+                            <TaskItem status={status} val={val} onClickEdit={() => onClickEdit(val)} />
                         );
                     })}
                 </div>
