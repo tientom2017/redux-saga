@@ -11,3 +11,10 @@ export const ADD_TASK_FALSE = 'ADD_TASK_FALSE';
 
 export const TASK_EDITING = 'TASK_EDITING';
 
+export const EDIT_TASK = 'EDIT_TASK';
+export const EDIT_TASK_SUCCESS = 'EDIT_TASK_SUCCESS';
+export const EDIT_TASK_FALSE = 'EDIT_TASK_FALSE';
+
+export const DEL_TASK = 'DEL_TASK';
+export const DEL_TASK_SUCCESS = 'DEL_TASK_SUCCESS';
+export const DEL_TASK_FALSE = 'DEL_TASK_FALSE';

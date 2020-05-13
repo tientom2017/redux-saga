@@ -17,32 +17,33 @@ class TaskForm extends Component {
     }
 
     handleSubmitForm = data => {
-        const { addTaskRequest } = this.props.TaskActionsCreator;
-        addTaskRequest(data.title, data.desc, data.email);
+        const { addTaskRequest, editTaskRequest } = this.props.TaskActionsCreator;
+        if(data && data.id) {
+            editTaskRequest(data.id, data.title, data.description, data.status);
+        } else {
+            addTaskRequest(data.title, data.description);
+        }
     }
 
     renderSelection() {
-        debugger;
         const { taskEditing, classes } = this.props;
         let xhtml = null;
-        console.log('task: ', taskEditing);
         if (taskEditing && taskEditing.id && taskEditing.id != null) {
             xhtml = (
                 <Grid item md={12}>
                     <Field
                         id="select"
                         label="Trạng thái"
-                        multiline
                         rowsMax="4"
                         className={classes.selection}
                         margin="normal"
-                        name="select"
+                        name="status"
                         component={renderSelectField}
                         fullWidth
                     >
-                        <option value={STATUS[0].value}>Ready</option>
-                        <option value={STATUS[1].value}>Process</option>
-                        <option value={STATUS[2].value}>Completed</option>
+                        <option value={STATUS[0].value}>{STATUS[0].label}</option>
+                        <option value={STATUS[1].value}>{STATUS[1].label}</option>
+                        <option value={STATUS[2].value}>{STATUS[2].label}</option>
                     </Field>
                 </Grid>)
         }
@@ -101,7 +102,6 @@ class TaskForm extends Component {
         );
     }
 }
-
 
 const mapStateToProps = state => ({
     taskEditing: state.task.taskEditing,

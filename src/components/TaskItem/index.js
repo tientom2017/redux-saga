@@ -16,7 +16,7 @@ class TaskItem extends Component {
         this.state = {};
     }
     render() {
-        const { classes, val, status, onClickEdit } = this.props;
+        const { classes, val, status, onClickEdit, onClickDelete } = this.props;
 
         return (
             <Card className={classes.root}>
@@ -33,7 +33,7 @@ class TaskItem extends Component {
                     <Fab color="primary" aria-label="add" onClick={onClickEdit}>
                         <EditIcon />
                     </Fab>
-                    <Fab color="secondary" aria-label="edit">
+                    <Fab color="secondary" aria-label="edit" onClick={onClickDelete}>
                         <DeleteIcon />
                     </Fab>
                 </CardActions>

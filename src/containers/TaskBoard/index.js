@@ -21,8 +21,8 @@ class TaskBoard extends Component {
     }
 
     componentDidMount() {
-        const {taskActionsCreators} = this.props;
-        const {fetListTask} = taskActionsCreators;
+        const { taskActionsCreators } = this.props;
+        const { fetListTask } = taskActionsCreators;
         fetListTask();
     }
 
@@ -33,9 +33,9 @@ class TaskBoard extends Component {
     }
 
     addNewTask = () => {
-        const {modalActionsCreators, taskActionsCreators} = this.props;
-        const {showModal, changeModalTitle, changeModalContent, hideModal} = modalActionsCreators;
-        const {taskEditing} = taskActionsCreators;
+        const { modalActionsCreators, taskActionsCreators } = this.props;
+        const { showModal, changeModalTitle, changeModalContent, hideModal } = modalActionsCreators;
+        const { taskEditing } = taskActionsCreators;
         taskEditing(null);
         showModal();
         changeModalTitle('Thêm mới công việc');
@@ -47,8 +47,8 @@ class TaskBoard extends Component {
     }
 
     handleFilter = e => {
-        const {taskActionsCreators} = this.props;
-        const {filterTask} = taskActionsCreators;
+        const { taskActionsCreators } = this.props;
+        const { filterTask } = taskActionsCreators;
         filterTask(e.target.value);
     }
 
@@ -59,13 +59,19 @@ class TaskBoard extends Component {
     }
 
     handleClickEdit = task => {
-        const {taskActionsCreators, modalActionsCreators} = this.props;
-        const {taskEditing} = taskActionsCreators;
+        const { taskActionsCreators, modalActionsCreators } = this.props;
+        const { taskEditing } = taskActionsCreators;
         taskEditing(task);
-        const {showModal, changeModalTitle, changeModalContent, hideModal} = modalActionsCreators;
+        const { showModal, changeModalTitle, changeModalContent, hideModal } = modalActionsCreators;
         showModal();
         changeModalTitle('Cập nhật công việc');
         changeModalContent(<TaskForm hideModal={hideModal} />);
+    }
+
+    handleClickDelete = task => {
+        const { taskActionsCreators, modalActionsCreators } = this.props;
+        const {delTaskRequest} = taskActionsCreators;
+        delTaskRequest(task.id);
     }
 
     render() {
@@ -83,10 +89,15 @@ class TaskBoard extends Component {
                 <Grid container spacing={1}>
                     {
                         STATUS.map((status, index) => {
-                            if(listTask1 && listTask1.length > 0) {
+                            if (listTask1 && listTask1.length > 0) {
                                 var taskFilter = listTask1.filter(task => task.status === status.value);
                                 return (
-                                    <TaskList taskFilter={taskFilter} status={status} onClickEdit={this.handleClickEdit} />
+                                    <TaskList
+                                        taskFilter={taskFilter}
+                                        status={status}
+                                        onClickDelete={this.handleClickDelete}
+                                        onClickEdit={this.handleClickEdit}
+                                    />
                                 );
                             }
                         })
@@ -98,12 +109,12 @@ class TaskBoard extends Component {
 }
 
 const mapStateToProps = state => {
-    return{
+    return {
         listTask: state.task.listTask,
     };
 };
 const mapDispatchToProps = dispatch => {
-    return{
+    return {
         taskActionsCreators: bindActionCreators(taskActions, dispatch),
         modalActionsCreators: bindActionCreators(modalActions, dispatch)
     };

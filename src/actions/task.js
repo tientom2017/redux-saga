@@ -99,4 +99,61 @@ export const taskEditing = task => {
             task
         }
     }
-}
+};
+
+export const editTaskRequest = (id, title, description, status) => {
+    return {
+        type: Types.EDIT_TASK,
+        payload: {
+            id,
+            title,
+            description,
+            status
+        }
+    };
+};
+
+export const editTaskSuccess = data => {
+    return {
+        type: Types.EDIT_TASK_SUCCESS,
+        payload: {
+            data
+        }
+    };
+};
+
+export const editTaskFalse = data => {
+    return {
+        type: Types.EDIT_TASK_FALSE,
+        payload: {
+            data
+        }
+    };
+};
+
+export const delTaskRequest = (id) => {
+    return {
+        type: Types.DEL_TASK,
+        payload: {
+            id
+        }
+    };
+};
+
+export const delTaskSuccess = data => {
+    return {
+        type: Types.DEL_TASK_SUCCESS,
+        payload: {
+            data
+        }
+    };
+};
+
+export const delTaskFalse = data => {
+    return {
+        type: Types.DEL_TASK_FALSE,
+        payload: {
+            data
+        }
+    };
+};
