@@ -21,10 +21,6 @@ function* watchFetchListTask() {
     }
 };
 
-function* watchSddTask() {
-    console.log('add task');
-};
-
 function* filterTaskSaga(payload) {
     yield delay(500);
     const { keyword } = payload.payload;
@@ -42,7 +38,6 @@ function* filterTaskSaga(payload) {
 
 function* rootSaga() {
     yield fork(watchFetchListTask);
-    yield fork(watchSddTask);
     yield takeLatest(Types.FILTER_TAST, filterTaskSaga);
 };
 
