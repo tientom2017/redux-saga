@@ -1,5 +1,6 @@
 import * as taskApi from '../apis/task';
 import * as Types from '../constants/task';
+import * as TypesStatus from '../constants/index';
 
 export const fetListTask = () => {
     return {
@@ -56,6 +57,101 @@ export const filterTask = keyword => {
 export const filterTaskSuccess = data => {
     return {
         type: Types.FILTER_TAST_SUCCESS,
+        payload: {
+            data
+        }
+    };
+};
+
+export const addTaskRequest = (title, description) => {
+    return {
+        type: Types.ADD_TASK,
+        payload: {
+            title,
+            description,
+            status: TypesStatus.STATUS[0].value
+        }
+    };
+};
+
+export const addTaskSuccess = data => {
+    return {
+        type: Types.ADD_TASK_SUCCESS,
+        payload: {
+            data
+        }
+    };
+};
+
+export const addTaskFalse = data => {
+    return {
+        type: Types.ADD_TASK_FALSE,
+        payload: {
+            data
+        }
+    };
+};
+
+export const taskEditing = task => {
+    return {
+        type: Types.TASK_EDITING,
+        payload: {
+            task
+        }
+    }
+};
+
+export const editTaskRequest = (id, title, description, status) => {
+    return {
+        type: Types.EDIT_TASK,
+        payload: {
+            id,
+            title,
+            description,
+            status
+        }
+    };
+};
+
+export const editTaskSuccess = data => {
+    return {
+        type: Types.EDIT_TASK_SUCCESS,
+        payload: {
+            data
+        }
+    };
+};
+
+export const editTaskFalse = data => {
+    return {
+        type: Types.EDIT_TASK_FALSE,
+        payload: {
+            data
+        }
+    };
+};
+
+export const delTaskRequest = (id) => {
+    return {
+        type: Types.DEL_TASK,
+        payload: {
+            id
+        }
+    };
+};
+
+export const delTaskSuccess = data => {
+    return {
+        type: Types.DEL_TASK_SUCCESS,
+        payload: {
+            data
+        }
+    };
+};
+
+export const delTaskFalse = data => {
+    return {
+        type: Types.DEL_TASK_FALSE,
         payload: {
             data
         }

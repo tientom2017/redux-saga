@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
 import * as taskActions from '../../actions/task';
 import * as modalActions from '../../actions/modal';
-import TaskForm from '../../components/TaskForm';
+import TaskForm from '../TaskForm';
 import TaskList from '../../components/TaskList';
 import { STATUS } from '../../constants';
 import styles from './styles';
@@ -21,8 +21,8 @@ class TaskBoard extends Component {
     }
 
     componentDidMount() {
-        const {taskActionsCreators} = this.props;
-        const {fetListTask} = taskActionsCreators;
+        const { taskActionsCreators } = this.props;
+        const { fetListTask } = taskActionsCreators;
         fetListTask();
     }
 
@@ -33,8 +33,10 @@ class TaskBoard extends Component {
     }
 
     addNewTask = () => {
-        const {modalActionsCreators} = this.props;
-        const {showModal, changeModalTitle, changeModalContent, hideModal} = modalActionsCreators;
+        const { modalActionsCreators, taskActionsCreators } = this.props;
+        const { showModal, changeModalTitle, changeModalContent, hideModal } = modalActionsCreators;
+        const { taskEditing } = taskActionsCreators;
+        taskEditing(null);
         showModal();
         changeModalTitle('Thêm mới công việc');
         changeModalContent(<TaskForm hideModal={hideModal} />);
@@ -45,8 +47,8 @@ class TaskBoard extends Component {
     }
 
     handleFilter = e => {
-        const {taskActionsCreators} = this.props;
-        const {filterTask} = taskActionsCreators;
+        const { taskActionsCreators } = this.props;
+        const { filterTask } = taskActionsCreators;
         filterTask(e.target.value);
     }
 
@@ -54,6 +56,22 @@ class TaskBoard extends Component {
         let xhtml = null;
         xhtml = <SearchBox handleFilter={this.handleFilter} />;
         return xhtml;
+    }
+
+    handleClickEdit = task => {
+        const { taskActionsCreators, modalActionsCreators } = this.props;
+        const { taskEditing } = taskActionsCreators;
+        taskEditing(task);
+        const { showModal, changeModalTitle, changeModalContent, hideModal } = modalActionsCreators;
+        showModal();
+        changeModalTitle('Cập nhật công việc');
+        changeModalContent(<TaskForm hideModal={hideModal} />);
+    }
+
+    handleClickDelete = task => {
+        const { taskActionsCreators, modalActionsCreators } = this.props;
+        const {delTaskRequest} = taskActionsCreators;
+        delTaskRequest(task.id);
     }
 
     render() {
@@ -71,15 +89,19 @@ class TaskBoard extends Component {
                 <Grid container spacing={1}>
                     {
                         STATUS.map((status, index) => {
-                            if(listTask1 && listTask1.length > 0) {
+                            if (listTask1 && listTask1.length > 0) {
                                 var taskFilter = listTask1.filter(task => task.status === status.value);
                                 return (
-                                    <TaskList taskFilter={taskFilter} status={status} />
+                                    <TaskList
+                                        taskFilter={taskFilter}
+                                        status={status}
+                                        onClickDelete={this.handleClickDelete}
+                                        onClickEdit={this.handleClickEdit}
+                                    />
                                 );
                             }
                         })
                     }
-
                 </Grid>
             </Fragment>
         );
@@ -87,12 +109,12 @@ class TaskBoard extends Component {
 }
 
 const mapStateToProps = state => {
-    return{
+    return {
         listTask: state.task.listTask,
     };
 };
 const mapDispatchToProps = dispatch => {
-    return{
+    return {
         taskActionsCreators: bindActionCreators(taskActions, dispatch),
         modalActionsCreators: bindActionCreators(modalActions, dispatch)
     };

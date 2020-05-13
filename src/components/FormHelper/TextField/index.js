@@ -6,7 +6,7 @@ const renderTextField = ({
     input,
     meta: { touched, invalid, error },
     ...custom
-}) => (
+}) => {return(
         <TextField
             label={label}
             placeholder={label}
@@ -15,6 +15,6 @@ const renderTextField = ({
             {...input}
             {...custom}
         />
-    )
+    )}
 
 export default renderTextField;
