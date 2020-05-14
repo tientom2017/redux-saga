@@ -13,6 +13,7 @@ import TaskList from '../../components/TaskList';
 import { STATUS } from '../../constants';
 import styles from './styles';
 import SearchBox from '../../components/search';
+import Confirm from '../../commons/confirm';
 
 class TaskBoard extends Component {
 
@@ -70,8 +71,11 @@ class TaskBoard extends Component {
 
     handleClickDelete = task => {
         const { taskActionsCreators, modalActionsCreators } = this.props;
+        const { showModal, changeModalTitle, changeModalContent, hideModal } = modalActionsCreators;
+        showModal();
+        changeModalTitle('Bạn có chắc chắc chắn xóa ?');
         const {delTaskRequest} = taskActionsCreators;
-        delTaskRequest(task.id);
+        changeModalContent(<Confirm confirm={() => delTaskRequest(task.id)} />);
     }
 
     render() {
