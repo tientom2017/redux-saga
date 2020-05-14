@@ -56,12 +56,10 @@ const reducer = (state = initialState, action) => {
         case Types.DEL_TASK:
             return { ...state };
         case Types.DEL_TASK_SUCCESS:
-            console.log(action.payload);
+            const id = action.payload.id;
+            const newListTask = state.listTask.filter(item => item.id != id);
             debugger;
-            // const id = action.payload.id;
-            // const idx = listTask.findIndex(item => item.id === id);
-            // const newListTask = listTask.splice(idx, 1);
-            return { ...state };
+            return { ...state, listTask: newListTask };
         case Types.DEL_TASK_FALSE:
             toastErr('Xoá công việc thất bại!');
             return { ...state };

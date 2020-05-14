@@ -140,11 +140,11 @@ export const delTaskRequest = (id) => {
     };
 };
 
-export const delTaskSuccess = data => {
+export const delTaskSuccess = id => {
     return {
         type: Types.DEL_TASK_SUCCESS,
         payload: {
-            data
+            id
         }
     };
 };

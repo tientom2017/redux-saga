@@ -65,7 +65,7 @@ function* delTaskSaga({payload}) {
     const res = yield call(delTask, payload.id);
     const { status, data } = res;
     if (status === STATUS_CODE.SUCCESS) {
-        yield put(delTaskSuccess(data));
+        yield put(delTaskSuccess(payload.id));
     } else {
         yield put(delTaskFalse(data));
     }
