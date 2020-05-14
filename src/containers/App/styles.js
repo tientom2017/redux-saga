@@ -6,6 +6,9 @@ const styles = () => ({
     status: {
         color: 'red'
     },
+    wapper: {
+        fontFamily: 'Roboto'
+    }
 });
 
 export default styles;

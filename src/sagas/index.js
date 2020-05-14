@@ -63,11 +63,11 @@ function* editTaskSaga({payload}) {
 function* delTaskSaga({payload}) {
     yield put(showLoadingGl());
     const res = yield call(delTask, payload.id);
-    const { status, data } = res;
+    const { status } = res;
     if (status === STATUS_CODE.SUCCESS) {
-        yield put(delTaskSuccess(data));
+        yield put(delTaskSuccess(payload.id));
     } else {
-        yield put(delTaskFalse(data));
+        yield put(delTaskFalse());
     }
     yield delay(500);
     yield put(hideLoadingGl());
@@ -87,8 +87,6 @@ function* filterTaskSaga(payload) {
     const filterTask = listTask.filter(task => task.title.trim().toLowerCase().includes(keyword.trim().toLowerCase()));
     yield put(filterTaskSuccess(filterTask));
 }
-
-
 
 function* rootSaga() {
     yield fork(watchFetchListTask);
