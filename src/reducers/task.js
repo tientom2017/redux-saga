@@ -56,7 +56,6 @@ const reducer = (state = initialState, action) => {
         case Types.DEL_TASK:
             return { ...state };
         case Types.DEL_TASK_SUCCESS:
-            console.log(action.payload);
             const id = action.payload.id;
             const newListTask = state.listTask.filter(item => item.id != id);
             toastSuccess('Xóa thành công');

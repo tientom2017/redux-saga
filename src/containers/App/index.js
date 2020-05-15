@@ -34,13 +34,13 @@ class App extends Component {
                     exact={route.exact}
                     component={route.component}
                 />
-            )
-        })
+            );
+        });
         return xhtml;
     }
 
     render() {
-        const { classes } = this.props
+        const { classes } = this.props;
         return (
             <Provider store={store}>
                 <BrowserRouter>

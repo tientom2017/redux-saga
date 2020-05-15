@@ -5,23 +5,23 @@ import DashBoard from '../../../components/DashBoard';
 class AdminLayoutRoute extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {  };
     }
-    render() { 
+    render() {
         const {component: YourComponent, ...remainProps} = this.props;
         return (
-            <Route 
+            <Route
                 {...remainProps}
                 render = {routerProps => {
                     return (
                         <DashBoard {...remainProps}>
                             <YourComponent />
                         </DashBoard>
-                    )
+                    );
                 }}
             />
-        )
+        );
     }
 }
- 
+
 export default AdminLayoutRoute;

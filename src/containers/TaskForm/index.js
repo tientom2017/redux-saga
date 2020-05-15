@@ -52,7 +52,6 @@ class TaskForm extends Component {
 
     render() {
         var { classes, hideModal, handleSubmit, invalid, submitting } = this.props;
-        console.log(this.props);
         return (
             <form className={classes.form} onSubmit={handleSubmit(this.handleSubmitForm)}>
                 <Grid container>

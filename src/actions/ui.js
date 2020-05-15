@@ -11,3 +11,10 @@ export const hideLoadingGl = () => {
         type: Types.HIDE_LOADING
     };
 };
+
+export const toggleSideBar = () => {
+    return {
+        type: Types.TOGGLE_SIDEBAR
+    };
+};
+

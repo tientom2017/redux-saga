@@ -15,7 +15,7 @@ class Header extends Component {
         super(props);
         this.state = {
             anchorEl: null,
-        }
+        };
     }
 
     handleProfileMenuOpen = (e) => {
@@ -29,7 +29,6 @@ class Header extends Component {
     renderMenu = () => {
         const { anchorEl } = this.state;
         const isMenuOpen = Boolean(anchorEl);
-        console.log(isMenuOpen);
         return (
             <Menu
                 anchorEl={anchorEl}
@@ -42,11 +41,17 @@ class Header extends Component {
             >
                 <MenuItem onClick={this.handleMenuClose}>LogOut</MenuItem>
             </Menu>
-        )
+        );
+    }
+
+    toggleSideBar = () => {
+        debugger;
+        const {toggleSideBar} = this.props;
+        toggleSideBar();
     }
 
     render() {
-        const { classes, name } = this.props;
+        const { classes, name, toggleSideBar } = this.props;
         return (
             <div className={classes.grow}>
                 <AppBar position="static">
@@ -56,6 +61,7 @@ class Header extends Component {
                             className={classes.menuButton}
                             color="inherit"
                             aria-label="open drawer"
+                            onClick={this.toggleSideBar}
                         >
                             <MenuIcon />
                         </IconButton>
